@@ -1,0 +1,258 @@
+{
+  "nav": {
+    "home": "Home",
+    "services": "Services",
+    "journey": "How It Works",
+    "tech": "Technology",
+    "team": "Team",
+    "contact": "Contact",
+    "cta": "Apply for Access"
+  },
+  "hero": {
+    "title": "BUILDORA",
+    "subtitle": "Construction Project Management System",
+    "tagline": "One connected workspace for the construction project lifecycle.",
+    "ctaPrimary": "Apply for Access",
+    "ctaSecondary": "See What We Do",
+    "tags": "Dataverse · Power Apps · Power Automate · SharePoint"
+  },
+  "problem": {
+    "badge": "Why Buildora?",
+    "title": "Built to solve the chaos of disconnected construction data",
+    "subtitle": "Construction projects fail when critical information gets trapped in spreadsheets, email threads, and paper logs.",
+    "cards": {
+      "scattered": {
+        "title": "Scattered Information",
+        "description": "Projects, contracts, milestones, and financial records fragmented across disconnected tools, isolated spreadsheets, and desktop folders."
+      },
+      "visibility": {
+        "title": "Weak Visibility",
+        "description": "Executives and project managers struggle to obtain a real-time, consolidated view of true progress, net financial positions, and looming deadlines."
+      },
+      "followup": {
+        "title": "Manual Follow-up",
+        "description": "Crucial approvals, payment certificates, milestone signoffs, and expiry reminders are easily missed when dependent on manual human tracking."
+      }
+    },
+    "closing": "Our goal: build a connected project-management experience where project data drives workflows, calculations, and notifications automatically."
+  },
+  "identity": {
+    "badge": "Our Identity",
+    "title": "What is Buildora?",
+    "lead": "Buildora is a model-driven construction project management platform built on the Microsoft Power Platform ecosystem.",
+    "paragraph": "The environment acts as the company boundary, and Microsoft Dataverse is the system of record — giving each client construction enterprise its own secure, enterprise-grade workspace.",
+    "highlight": "Project management engineered specifically for construction contractors, consultants, and developers.",
+    "points": {
+      "boundary": "Isolated corporate tenant boundary for full data sovereignty and governance.",
+      "record": "Microsoft Dataverse as the single source of truth for all relational project data.",
+      "security": "Native Microsoft Entra ID authentication and role-based field-level security."
+    }
+  },
+  "services": {
+    "badge": "Core Modules",
+    "title": "Comprehensive Capabilities Across Every Stage",
+    "subtitle": "Modular yet unified architecture designed to mirror actual construction business workflows.",
+    "items": {
+      "setup": {
+        "title": "Project Setup",
+        "description": "Project, Contract, Milestones, and Team — get every job organized with structured metadata and governance from day one."
+      },
+      "delivery": {
+        "title": "Delivery Tracking",
+        "description": "Chapters, progress percentages, site logs, and risk tracking, recalculated automatically as physical work is completed on site."
+      },
+      "finance": {
+        "title": "Finance & Cash Flow",
+        "description": "Payment Certificates, Invoices, and Payments — track certified work all the way to cash collected, calculated live in real time."
+      },
+      "documents": {
+        "title": "Document Management",
+        "description": "Project drawings, specs, and contract files stored securely in Microsoft SharePoint, automatically categorized and indexed."
+      },
+      "insights": {
+        "title": "Real-Time Insights",
+        "description": "Live interactive dashboards, rollups, and formula-driven fields delivering instantaneous visibility into project health and margins."
+      },
+      "alerts": {
+        "title": "Automated Alerts",
+        "description": "Automated due-date, warranty expiry, contract milestone, and status-change email notifications — nothing falls through the cracks."
+      }
+    }
+  },
+  "journey": {
+    "badge": "User Journey",
+    "title": "How Buildora Works",
+    "subtitle": "An end-to-end connected lifecycle from contract award to final payment.",
+    "steps": [
+      { "num": "01", "title": "Create Project", "desc": "Initialize project profile, classification, client details, and initial budget." },
+      { "num": "02", "title": "Add Contract", "desc": "Establish contract value, terms, retentions, and scope of work." },
+      { "num": "03", "title": "Define Milestones", "desc": "Break down deliverables into structured chapters and scheduled milestones." },
+      { "num": "04", "title": "Assign Team", "desc": "Allocate Project Managers, Site Engineers, and subcontractors with tailored permissions." },
+      { "num": "05", "title": "Track Progress", "desc": "Log site progress updates, photo evidence, and risk logs in real time." },
+      { "num": "06", "title": "Certify Work", "desc": "Issue official Payment Certificates reflecting certified progress quantities." },
+      { "num": "07", "title": "Invoice", "desc": "Generate billed invoice amounts tied directly to verified certificates." },
+      { "num": "08", "title": "Record Payment", "desc": "Log incoming cash receipts and outgoing vendor disbursements." }
+    ],
+    "caption": "At each stage, Buildora updates the data, applies business rules, and triggers the relevant automation."
+  },
+  "finance": {
+    "badge": "Financial Clarity",
+    "title": "Complete Traceability from Milestone to Cash",
+    "subtitle": "No more guesswork. Live financial metrics link certified site progress straight to cash flow.",
+    "chain": [
+      { "step": "1", "label": "Milestone Completed", "desc": "Physical work finished on site" },
+      { "step": "2", "label": "Payment Certificate", "desc": "Verified & certified amount" },
+      { "step": "3", "label": "Billed Invoice", "desc": "Official billing issued to client" },
+      { "step": "4", "label": "Cash Payment", "desc": "Reconciled cash movement" }
+    ],
+    "formulaLabel": "Live Financial Formula",
+    "metricTitle": "Net Cash Position",
+    "formula": "Net Cash Position = Total Collected − Total Outgoing",
+    "metricSub": "Calculated live across every active project with zero manual tallying.",
+    "sampleCollected": "Total Collected: $4,850,000",
+    "sampleOutgoing": "Total Outgoing: $3,210,000",
+    "sampleNet": "+$1,640,000"
+  },
+  "tech": {
+    "badge": "Architecture",
+    "title": "Built on Trusted Microsoft Technology",
+    "subtitle": "Leveraging world-class enterprise cloud services with no fragile custom backends.",
+    "items": [
+      { "name": "Power Apps", "role": "Model-Driven User Experience", "desc": "Responsive, structured enterprise UI tailored for complex construction processes." },
+      { "name": "Microsoft Dataverse", "role": "Relational Data & System of Record", "desc": "Scalable, compliant cloud data storage with rich business logic and relations." },
+      { "name": "Power Automate", "role": "Cloud Workflows & Automation", "desc": "Trigger-based notifications, approval matrices, and background calculations." },
+      { "name": "SharePoint", "role": "Secure Document Storage", "desc": "Enterprise document storage, metadata tagging, and version control." },
+      { "name": "Power Apps Component Framework (PCF)", "role": "Custom UI & File Uploads", "desc": "Enhanced drag-and-drop file uploaders and interactive site gallery components." },
+      { "name": "C# Plugins & Webhooks", "role": "Server-Side Logic & Validation", "desc": "Synchronous high-integrity transactional calculations and business constraints." }
+    ]
+  },
+  "security": {
+    "badge": "Security & Trust",
+    "title": "Role-Based Governance at Enterprise Scale",
+    "subtitle": "Security is enforced at the Microsoft Identity and Dataverse layer — not custom, untested authentication.",
+    "roles": {
+      "admin": {
+        "title": "Buildora Admin",
+        "tag": "Full Operational Access",
+        "description": "System configuration, tenant-wide settings, user provisioning, global financial rollups, and audit logging."
+      },
+      "pm": {
+        "title": "Project Manager",
+        "tag": "Project & Contract Control",
+        "description": "Complete management of assigned projects, milestones, budget allocations, risk mitigations, and certificate approvals."
+      },
+      "engineer": {
+        "title": "Site Engineer",
+        "tag": "Field Operations",
+        "description": "Daily site logs, progress percentage submissions, snag lists, site photo uploads, and field report documentation."
+      }
+    },
+    "caption": "Security is enforced at the Microsoft identity and Dataverse layer — not custom authentication."
+  },
+  "team": {
+    "badge": "The Creators",
+    "title": "Built by Engineers & Solution Architects",
+    "subtitle": "Graduation Project — Information Technology Institute (ITI Intake 46), Professional Development & BI-infused CRM Track.",
+    "members": [
+      { "name": "Omar Osama Elsayed Gibreel", "role": "Solution Architect & Technical Lead", "initials": "OG" },
+      { "name": "Youssef Ahmed Sobh Kassab", "role": "Software Engineer & Power Platform Developer", "initials": "YK" },
+      { "name": "Basel Ashraf Ahmed Sherief", "role": "Software Engineer & Power Platform Developer", "initials": "BS" },
+      { "name": "Reem Mohamed Rashad", "role": "Software Engineer & Business Analyst", "initials": "RR" },
+      { "name": "Salah Ayman Fawzy Mostafa", "role": "Software Engineer & Power Platform Developer", "initials": "SM" },
+      { "name": "Abdalrhman Mohamed Mohamed Farouk", "role": "Software Engineer & Power Platform Developer", "initials": "AF" }
+    ]
+  },
+  "ctaBand": {
+    "title": "Ready to bring your construction projects into one connected workspace?",
+    "subtitle": "Request your dedicated Buildora workspace today and streamline your project lifecycle.",
+    "button": "Apply for Access"
+  },
+  "contactPage": {
+    "title": "Get Started with Buildora",
+    "subtitle": "Tell us about your company. Our team will review your application and reach out to set up your Buildora workspace.",
+    "sidebar": {
+      "title": "Direct Contact",
+      "subtitle": "Prefer to talk first? Reach out directly and we'll walk you through a live demo of the Buildora platform.",
+      "email": "contact@buildora.app",
+      "phone": "+20 (100) 000-4646",
+      "location": "Smart Village, Giza, Egypt (ITI Intake 46)",
+      "responseNote": "Average response time: within 24 business hours."
+    }
+  },
+  "form": {
+    "companySection": "Company Information",
+    "companyName": "Company Name",
+    "companyNamePlaceholder": "e.g. Arab Contractors / Al-Ahly Developments",
+    "companyType": "Industry / Company Type",
+    "companyTypePlaceholder": "Select company type",
+    "companyTypeOptions": {
+      "construction": "General Construction",
+      "consultancy": "Engineering Consultancy",
+      "infrastructure": "Infrastructure & Civil Works",
+      "fitout": "Interior Design & Fit-out",
+      "other": "Other"
+    },
+    "companySize": "Company Size",
+    "companySizePlaceholder": "Select company size",
+    "companySizeOptions": {
+      "tier1": "1 – 10 employees",
+      "tier2": "11 – 50 employees",
+      "tier3": "51 – 200 employees",
+      "tier4": "200+ employees"
+    },
+    "country": "Country / Location",
+    "countryPlaceholder": "e.g. Egypt, UAE, Saudi Arabia",
+    
+    "contactSection": "Contact Person",
+    "fullName": "Full Name",
+    "fullNamePlaceholder": "e.g. Eng. Ahmed Hassan",
+    "jobTitle": "Job Title",
+    "jobTitlePlaceholder": "e.g. Managing Director / Projects Director",
+    "email": "Business Email Address",
+    "emailPlaceholder": "ahmed@company.com",
+    "phone": "Phone Number",
+    "phonePlaceholder": "+20 100 123 4567",
+    
+    "detailsSection": "Application Details",
+    "activeProjects": "Number of Active Projects",
+    "activeProjectsPlaceholder": "e.g. 5",
+    "managementGoals": "What are you looking to manage with Buildora?",
+    "goalsOptions": {
+      "tracking": "Project & Contract Tracking",
+      "milestones": "Milestones & Delivery Tracking",
+      "finance": "Finance & Invoicing Chain",
+      "documents": "Document Management (SharePoint)",
+      "reporting": "Risk & Live BI Reporting"
+    },
+    "message": "Additional Notes or Specific Requirements",
+    "messagePlaceholder": "Tell us about any specific ERP integrations, team size, or pain points...",
+    
+    "consent": "I confirm this information is accurate and agree to be contacted by the Buildora team regarding our workspace setup.",
+    "submit": "Send Application to Buildora Team",
+    "submitting": "Submitting Application...",
+    
+    "successTitle": "Application Sent Successfully!",
+    "successMessage": "Thanks — your application has been sent to the Buildora team. We'll review your details and be in touch shortly to configure your environment.",
+    "errorTitle": "Submission Error",
+    "errorMessage": "Unable to send your application at this moment. Please check your connection or contact us directly.",
+    "resetButton": "Submit Another Application"
+  },
+  "validation": {
+    "required": "This field is required.",
+    "minlength": "Must be at least 2 characters.",
+    "email": "Please enter a valid business email address.",
+    "phone": "Please enter a valid phone number with country code.",
+    "min": "Value must be 0 or greater.",
+    "consentRequired": "You must confirm this declaration before submitting."
+  },
+  "footer": {
+    "tagline": "One connected workspace for the construction project lifecycle.",
+    "quickLinks": "Quick Navigation",
+    "legal": "Governance & Security",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "security": "Security Overview",
+    "techStrip": "Built on Microsoft Power Platform — Dataverse · Power Apps · Power Automate · SharePoint",
+    "copyright": "© {{year}} Buildora. Graduation Project — ITI Intake 46 (PD & BI-infused CRM Track)."
+  }
+}
