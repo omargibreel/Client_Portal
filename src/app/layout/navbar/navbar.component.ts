@@ -38,9 +38,6 @@ import { LanguageService } from '../../core/services/language.service';
           <a href="#tech" class="nav-link">
             {{ 'nav.tech' | translate }}
           </a>
-          <a href="#team" class="nav-link">
-            {{ 'nav.team' | translate }}
-          </a>
           <a routerLink="/contact" routerLinkActive="active" class="nav-link">
             {{ 'nav.contact' | translate }}
           </a>
@@ -93,9 +90,6 @@ import { LanguageService } from '../../core/services/language.service';
           </a>
           <a href="#tech" (click)="closeMobileMenu()" class="mobile-nav-link">
             {{ 'nav.tech' | translate }}
-          </a>
-          <a href="#team" (click)="closeMobileMenu()" class="mobile-nav-link">
-            {{ 'nav.team' | translate }}
           </a>
           <a routerLink="/contact" (click)="closeMobileMenu()" routerLinkActive="active" class="mobile-nav-link">
             {{ 'nav.contact' | translate }}

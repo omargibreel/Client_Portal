@@ -44,14 +44,6 @@ import { ScrollRevealDirective } from '../../core/directives/scroll-reveal.direc
                 </div>
 
                 <div class="contact-entry">
-                  <div class="entry-icon">✆</div>
-                  <div class="entry-text">
-                    <span class="entry-label">Phone / WhatsApp</span>
-                    <span class="entry-val">{{ 'contactPage.sidebar.phone' | translate }}</span>
-                  </div>
-                </div>
-
-                <div class="contact-entry">
                   <div class="entry-icon">📍</div>
                   <div class="entry-text">
                     <span class="entry-label">HQ Location</span>
@@ -244,7 +236,7 @@ export class ContactComponent implements OnInit {
     this.seoService.updateTags({
       title: 'Apply for Access — Buildora Construction Workspace',
       description: 'Request access and configure your dedicated Buildora workspace for construction project management on Microsoft Power Platform.',
-      keywords: 'Buildora Contact, Workspace Setup, Construction SaaS, Dataverse CRM, ITI Intake 46'
+      keywords: 'Buildora Contact, Workspace Setup, Construction SaaS, Dataverse CRM, Enterprise Deployment'
     });
   }
 }

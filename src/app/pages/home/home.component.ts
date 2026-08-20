@@ -8,7 +8,6 @@ import { JourneySectionComponent } from './sections/journey/journey.component';
 import { FinanceHighlightSectionComponent } from './sections/finance-highlight/finance-highlight.component';
 import { TechStackSectionComponent } from './sections/tech-stack/tech-stack.component';
 import { SecuritySectionComponent } from './sections/security/security.component';
-import { TeamSectionComponent } from './sections/team/team.component';
 import { CtaBandSectionComponent } from './sections/cta-band/cta-band.component';
 import { SeoService } from '../../core/services/seo.service';
 
@@ -25,7 +24,6 @@ import { SeoService } from '../../core/services/seo.service';
     FinanceHighlightSectionComponent,
     TechStackSectionComponent,
     SecuritySectionComponent,
-    TeamSectionComponent,
     CtaBandSectionComponent
   ],
   template: `
@@ -38,7 +36,6 @@ import { SeoService } from '../../core/services/seo.service';
       <app-finance-highlight-section></app-finance-highlight-section>
       <app-tech-stack-section></app-tech-stack-section>
       <app-security-section></app-security-section>
-      <app-team-section></app-team-section>
       <app-cta-band-section></app-cta-band-section>
     </main>
   `,
@@ -56,8 +53,8 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.seoService.updateTags({
       title: 'Buildora — One Connected Workspace for the Construction Lifecycle',
-      description: 'Construction Project Management System built on Microsoft Power Platform (Dataverse, Power Apps, Power Automate, SharePoint). ITI Intake 46 graduation project.',
-      keywords: 'Buildora, Construction CRM, Dataverse, Power Apps, Power Automate, SharePoint, ITI Intake 46'
+      description: 'Construction Project Management System built natively on Microsoft Power Platform (Dataverse, Power Apps, Power Automate, SharePoint).',
+      keywords: 'Buildora, Construction CRM, Dataverse, Power Apps, Power Automate, SharePoint, Project Lifecycle'
     });
   }
 }
