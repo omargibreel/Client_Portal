@@ -3,6 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { CompanyApplication, ApplicationSubmissionResponse } from '../models/company-application.model';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,10 +12,9 @@ export class CompanyApplicationService {
   private readonly http = inject(HttpClient);
 
   /**
-   * Connects directly to the live .NET 8 Web API backend endpoint.
-   * TODO: move to environment.ts / environment.prod.ts when a production API host is available.
+   * Connects to the Azure-hosted Buildora Web API backend endpoint.
    */
-  private readonly API_ENDPOINT = 'http://localhost:5238/api/company-applications';
+  private readonly API_ENDPOINT = environment.companyApplicationsEndpoint;
 
   /**
    * Submits the company application form to the backend endpoint.
