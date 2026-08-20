@@ -33,6 +33,7 @@ import { MagneticHoverDirective } from '../../core/directives/magnetic-hover.dir
             <li><a href="#journey"><span class="link-bullet">›</span>{{ 'nav.journey' | translate }}</a></li>
             <li><a href="#tech"><span class="link-bullet">›</span>{{ 'nav.tech' | translate }}</a></li>
             <li><a routerLink="/contact"><span class="link-bullet">›</span>{{ 'nav.contact' | translate }}</a></li>
+            <li><a href="http://localhost:4201" target="_blank" rel="noopener noreferrer"><span class="link-bullet">›</span>{{ 'nav.adminPortal' | translate }} ↗</a></li>
           </ul>
         </div>
 

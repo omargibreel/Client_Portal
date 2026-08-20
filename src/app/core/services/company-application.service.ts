@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
-import { delay, catchError, map } from 'rxjs/operators';
+import { catchError, map, switchMap } from 'rxjs/operators';
 import { CompanyApplication, ApplicationSubmissionResponse } from '../models/company-application.model';
 
 @Injectable({
@@ -11,44 +11,62 @@ export class CompanyApplicationService {
   private readonly http = inject(HttpClient);
 
   /**
-   * TODO: Wire this endpoint to the real Power Automate HTTP trigger / Dataverse Web API.
-   * Example: https://prod-xx.westeurope.logic.azure.com/workflows/.../triggers/manual/paths/invoke
-   * Or: https://<org-name>.api.crm4.dynamics.com/api/data/v9.2/buildora_companyapplications
+   * Connects directly to the live .NET 8 Web API backend endpoint.
+   * TODO: move to environment.ts / environment.prod.ts when a production API host is available.
    */
-  private readonly API_ENDPOINT = '/api/company-applications';
+  private readonly API_ENDPOINT = 'http://localhost:5238/api/company-applications';
 
   /**
    * Submits the company application form to the backend endpoint.
-   * If the placeholder endpoint is unavailable (e.g. static dev environment),
-   * it provides a resilient simulated response so user testing and demos succeed cleanly.
+   * Real errors (validation failures, the API being unreachable, etc.) are surfaced
+   * to the caller as-is so the UI can show an honest success/error state instead of
+   * masking a broken connection behind a simulated response.
+   *
+   * The tax image (if the applicant attached one) is optional, so it is uploaded as a
+   * separate follow-up multipart request once the application itself has been created —
+   * the main JSON submission never fails just because the file upload step has trouble.
    */
-  public submitApplication(payload: CompanyApplication): Observable<ApplicationSubmissionResponse> {
+  public submitApplication(payload: CompanyApplication, taxImageFile?: File | null): Observable<ApplicationSubmissionResponse> {
     const timestamp = new Date().toISOString();
     const enrichedPayload: CompanyApplication = {
       ...payload,
       submittedAt: timestamp
     };
 
-    // Attempt real HTTP POST to placeholder endpoint
     return this.http.post<ApplicationSubmissionResponse>(this.API_ENDPOINT, enrichedPayload).pipe(
+      switchMap((res) => {
+        if (taxImageFile && res.applicationId) {
+          return this.uploadTaxImage(res.applicationId, taxImageFile).pipe(
+            map(() => res),
+            catchError((error) => {
+              console.error(
+                '[Buildora] Tax image upload failed; application was still created:',
+                error
+              );
+              return of(res);
+            })
+          );
+        }
+        return of(res);
+      }),
       catchError((error: HttpErrorResponse) => {
-        // Log TODO notice for developers
-        console.info(
-          '[Buildora] Real backend placeholder (/api/company-applications) returned:',
+        console.error(
+          '[Buildora] POST /api/company-applications failed:',
           error.status,
-          '- Simulating successful Power Platform / Dataverse ingestion for frontend demo.'
+          error.error ?? error.message
         );
-
-        // Fallback simulated response for live demo & standalone testing
-        const simulatedResponse: ApplicationSubmissionResponse = {
-          success: true,
-          applicationId: 'BLD-' + Math.floor(100000 + Math.random() * 900000),
-          message: 'Application received and queued for Buildora workspace provisioning.',
-          timestamp: timestamp
-        };
-
-        return of(simulatedResponse).pipe(delay(850));
+        return throwError(() => error);
       })
     );
+  }
+
+  /**
+   * Attaches the applicant's tax registration document/image to an already-submitted
+   * application. Not called at all when no file was selected, since the tax image is optional.
+   */
+  private uploadTaxImage(applicationId: string, file: File): Observable<unknown> {
+    const formData = new FormData();
+    formData.append('taxImage', file, file.name);
+    return this.http.post(`${this.API_ENDPOINT}/${applicationId}/tax-image`, formData);
   }
 }

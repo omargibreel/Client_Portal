@@ -6,7 +6,8 @@
     "tech": "Technology",
     "team": "Team",
     "contact": "Contact",
-    "cta": "Apply for Access"
+    "cta": "Apply for Access",
+    "adminPortal": "Admin Portal"
   },
   "hero": {
     "title": "BUILDORA",
@@ -173,9 +174,8 @@
     "sidebar": {
       "title": "Direct Contact",
       "subtitle": "Prefer to talk first? Reach out directly and we'll walk you through a live demo of the Buildora platform.",
-      "email": "contact@buildora.app",
-      "phone": "+20 (100) 000-4646",
-      "location": "Smart Village, Giza, Egypt (ITI Intake 46)",
+      "email": "buildoracrm@gmail.com",
+      "location": "Smart Village, Giza, Egypt",
       "responseNote": "Average response time: within 24 business hours."
     }
   },
@@ -246,13 +246,18 @@
     "consentRequired": "You must confirm this declaration before submitting."
   },
   "footer": {
-    "tagline": "One connected workspace for the construction project lifecycle.",
+    "tagline": "The next-generation connected workspace for construction project lifecycle management and enterprise intelligence.",
     "quickLinks": "Quick Navigation",
+    "solutions": "Platform Capabilities",
     "legal": "Governance & Security",
     "privacy": "Privacy Policy",
     "terms": "Terms of Service",
     "security": "Security Overview",
-    "techStrip": "Built on Microsoft Power Platform — Dataverse · Power Apps · Power Automate · SharePoint",
-    "copyright": "© {{year}} Buildora. Graduation Project — ITI Intake 46 (PD & BI-infused CRM Track)."
+    "systemStatus": "System Status: Operational (99.9% Uptime)",
+    "contactHeading": "Enterprise Connect",
+    "consultationNote": "Ready to transform your construction lifecycle?",
+    "techStrip": "Built natively on Microsoft Power Platform",
+    "copyright": "© {{year}} Buildora. All rights reserved.",
+    "backToTop": "Back to Top"
   }
 }

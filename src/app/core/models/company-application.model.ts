@@ -7,6 +7,7 @@ export interface CompanyApplication {
   jobTitle?: string;
   email: string;
   phone: string;
+  taxNumber: string;
   activeProjects?: number;
   managementGoals: string[];
   additionalMessage?: string;

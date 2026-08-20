@@ -6,7 +6,8 @@
     "tech": "Technology",
     "team": "Team",
     "contact": "Contact",
-    "cta": "Apply for Access"
+    "cta": "Apply for Access",
+    "adminPortal": "Admin Portal"
   },
   "hero": {
     "title": "BUILDORA",
@@ -84,14 +85,46 @@
     "title": "How Buildora Works",
     "subtitle": "An end-to-end connected lifecycle from contract award to final payment.",
     "steps": [
-      { "num": "01", "title": "Create Project", "desc": "Initialize project profile, classification, client details, and initial budget." },
-      { "num": "02", "title": "Add Contract", "desc": "Establish contract value, terms, retentions, and scope of work." },
-      { "num": "03", "title": "Define Milestones", "desc": "Break down deliverables into structured chapters and scheduled milestones." },
-      { "num": "04", "title": "Assign Team", "desc": "Allocate Project Managers, Site Engineers, and subcontractors with tailored permissions." },
-      { "num": "05", "title": "Track Progress", "desc": "Log site progress updates, photo evidence, and risk logs in real time." },
-      { "num": "06", "title": "Certify Work", "desc": "Issue official Payment Certificates reflecting certified progress quantities." },
-      { "num": "07", "title": "Invoice", "desc": "Generate billed invoice amounts tied directly to verified certificates." },
-      { "num": "08", "title": "Record Payment", "desc": "Log incoming cash receipts and outgoing vendor disbursements." }
+      {
+        "num": "01",
+        "title": "Create Project",
+        "desc": "Initialize project profile, classification, client details, and initial budget."
+      },
+      {
+        "num": "02",
+        "title": "Add Contract",
+        "desc": "Establish contract value, terms, retentions, and scope of work."
+      },
+      {
+        "num": "03",
+        "title": "Define Milestones",
+        "desc": "Break down deliverables into structured chapters and scheduled milestones."
+      },
+      {
+        "num": "04",
+        "title": "Assign Team",
+        "desc": "Allocate Project Managers, Site Engineers, and subcontractors with tailored permissions."
+      },
+      {
+        "num": "05",
+        "title": "Track Progress",
+        "desc": "Log site progress updates, photo evidence, and risk logs in real time."
+      },
+      {
+        "num": "06",
+        "title": "Certify Work",
+        "desc": "Issue official Payment Certificates reflecting certified progress quantities."
+      },
+      {
+        "num": "07",
+        "title": "Invoice",
+        "desc": "Generate billed invoice amounts tied directly to verified certificates."
+      },
+      {
+        "num": "08",
+        "title": "Record Payment",
+        "desc": "Log incoming cash receipts and outgoing vendor disbursements."
+      }
     ],
     "caption": "At each stage, Buildora updates the data, applies business rules, and triggers the relevant automation."
   },
@@ -100,10 +133,26 @@
     "title": "Complete Traceability from Milestone to Cash",
     "subtitle": "No more guesswork. Live financial metrics link certified site progress straight to cash flow.",
     "chain": [
-      { "step": "1", "label": "Milestone Completed", "desc": "Physical work finished on site" },
-      { "step": "2", "label": "Payment Certificate", "desc": "Verified & certified amount" },
-      { "step": "3", "label": "Billed Invoice", "desc": "Official billing issued to client" },
-      { "step": "4", "label": "Cash Payment", "desc": "Reconciled cash movement" }
+      {
+        "step": "1",
+        "label": "Milestone Completed",
+        "desc": "Physical work finished on site"
+      },
+      {
+        "step": "2",
+        "label": "Payment Certificate",
+        "desc": "Verified & certified amount"
+      },
+      {
+        "step": "3",
+        "label": "Billed Invoice",
+        "desc": "Official billing issued to client"
+      },
+      {
+        "step": "4",
+        "label": "Cash Payment",
+        "desc": "Reconciled cash movement"
+      }
     ],
     "formulaLabel": "Live Financial Formula",
     "metricTitle": "Net Cash Position",
@@ -118,12 +167,36 @@
     "title": "Built on Trusted Microsoft Technology",
     "subtitle": "Leveraging world-class enterprise cloud services with no fragile custom backends.",
     "items": [
-      { "name": "Power Apps", "role": "Model-Driven User Experience", "desc": "Responsive, structured enterprise UI tailored for complex construction processes." },
-      { "name": "Microsoft Dataverse", "role": "Relational Data & System of Record", "desc": "Scalable, compliant cloud data storage with rich business logic and relations." },
-      { "name": "Power Automate", "role": "Cloud Workflows & Automation", "desc": "Trigger-based notifications, approval matrices, and background calculations." },
-      { "name": "SharePoint", "role": "Secure Document Storage", "desc": "Enterprise document storage, metadata tagging, and version control." },
-      { "name": "Power Apps Component Framework (PCF)", "role": "Custom UI & File Uploads", "desc": "Enhanced drag-and-drop file uploaders and interactive site gallery components." },
-      { "name": "C# Plugins & Webhooks", "role": "Server-Side Logic & Validation", "desc": "Synchronous high-integrity transactional calculations and business constraints." }
+      {
+        "name": "Power Apps",
+        "role": "Model-Driven User Experience",
+        "desc": "Responsive, structured enterprise UI tailored for complex construction processes."
+      },
+      {
+        "name": "Microsoft Dataverse",
+        "role": "Relational Data & System of Record",
+        "desc": "Scalable, compliant cloud data storage with rich business logic and relations."
+      },
+      {
+        "name": "Power Automate",
+        "role": "Cloud Workflows & Automation",
+        "desc": "Trigger-based notifications, approval matrices, and background calculations."
+      },
+      {
+        "name": "SharePoint",
+        "role": "Secure Document Storage",
+        "desc": "Enterprise document storage, metadata tagging, and version control."
+      },
+      {
+        "name": "Power Apps Component Framework (PCF)",
+        "role": "Custom UI & File Uploads",
+        "desc": "Enhanced drag-and-drop file uploaders and interactive site gallery components."
+      },
+      {
+        "name": "C# Plugins & Webhooks",
+        "role": "Server-Side Logic & Validation",
+        "desc": "Synchronous high-integrity transactional calculations and business constraints."
+      }
     ]
   },
   "security": {
@@ -154,12 +227,36 @@
     "title": "Built by Engineers & Solution Architects",
     "subtitle": "Graduation Project — Information Technology Institute (ITI Intake 46), Professional Development & BI-infused CRM Track.",
     "members": [
-      { "name": "Omar Osama Elsayed Gibreel", "role": "Solution Architect & Technical Lead", "initials": "OG" },
-      { "name": "Youssef Ahmed Sobh Kassab", "role": "Software Engineer & Power Platform Developer", "initials": "YK" },
-      { "name": "Basel Ashraf Ahmed Sherief", "role": "Software Engineer & Power Platform Developer", "initials": "BS" },
-      { "name": "Reem Mohamed Rashad", "role": "Software Engineer & Business Analyst", "initials": "RR" },
-      { "name": "Salah Ayman Fawzy Mostafa", "role": "Software Engineer & Power Platform Developer", "initials": "SM" },
-      { "name": "Abdalrhman Mohamed Mohamed Farouk", "role": "Software Engineer & Power Platform Developer", "initials": "AF" }
+      {
+        "name": "Omar Osama Elsayed Gibreel",
+        "role": "Solution Architect & Technical Lead",
+        "initials": "OG"
+      },
+      {
+        "name": "Youssef Ahmed Sobh Kassab",
+        "role": "Software Engineer & Power Platform Developer",
+        "initials": "YK"
+      },
+      {
+        "name": "Basel Ashraf Ahmed Sherief",
+        "role": "Software Engineer & Power Platform Developer",
+        "initials": "BS"
+      },
+      {
+        "name": "Reem Mohamed Rashad",
+        "role": "Software Engineer & Business Analyst",
+        "initials": "RR"
+      },
+      {
+        "name": "Salah Ayman Fawzy Mostafa",
+        "role": "Software Engineer & Power Platform Developer",
+        "initials": "SM"
+      },
+      {
+        "name": "Abdalrhman Mohamed Mohamed Farouk",
+        "role": "Software Engineer & Power Platform Developer",
+        "initials": "AF"
+      }
     ]
   },
   "ctaBand": {
@@ -200,8 +297,15 @@
       "tier4": "200+ employees"
     },
     "country": "Country / Location",
+    "taxNumber": "Tax Registration Number",
+    "taxNumberPlaceholder": "e.g. 123-456-789",
+    "taxImage": "Tax Registration Document (optional)",
+    "taxImageHint": "Upload a photo or scan of your tax registration card — JPG, PNG or PDF, max 5MB.",
+    "taxImageChoose": "Choose File",
+    "taxImageChange": "Change File",
+    "taxImageRemove": "Remove file",
+    "taxImageNoFile": "No file selected",
     "countryPlaceholder": "e.g. Egypt, UAE, Saudi Arabia",
-    
     "contactSection": "Contact Person",
     "fullName": "Full Name",
     "fullNamePlaceholder": "e.g. Eng. Ahmed Hassan",
@@ -211,7 +315,6 @@
     "emailPlaceholder": "ahmed@company.com",
     "phone": "Phone Number",
     "phonePlaceholder": "+20 100 123 4567",
-    
     "detailsSection": "Application Details",
     "activeProjects": "Number of Active Projects",
     "activeProjectsPlaceholder": "e.g. 5",
@@ -225,11 +328,9 @@
     },
     "message": "Additional Notes or Specific Requirements",
     "messagePlaceholder": "Tell us about any specific ERP integrations, team size, or pain points...",
-    
     "consent": "I confirm this information is accurate and agree to be contacted by the Buildora team regarding our workspace setup.",
     "submit": "Send Application to Buildora Team",
     "submitting": "Submitting Application...",
-    
     "successTitle": "Application Sent Successfully!",
     "successMessage": "Thanks — your application has been sent to the Buildora team. We'll review your details and be in touch shortly to configure your environment.",
     "errorTitle": "Submission Error",
@@ -242,6 +343,8 @@
     "email": "Please enter a valid business email address.",
     "phone": "Please enter a valid phone number with country code.",
     "min": "Value must be 0 or greater.",
+    "taxImageType": "Only JPG, PNG or PDF files are allowed.",
+    "taxImageSize": "File size must not exceed 5MB.",
     "consentRequired": "You must confirm this declaration before submitting."
   },
   "footer": {

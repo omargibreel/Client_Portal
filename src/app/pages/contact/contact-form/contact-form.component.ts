@@ -133,6 +133,61 @@ import { ShinyButtonComponent } from '../../../shared/components/shiny-button/sh
                 <span>{{ 'validation.required' | translate }}</span>
               </div>
             </div>
+
+            <!-- Tax Registration Number -->
+            <div class="form-group" [class.has-error]="isInvalid('taxNumber')">
+              <label for="taxNumber" class="form-label">
+                {{ 'form.taxNumber' | translate }} <span class="required-star">*</span>
+              </label>
+              <input
+                id="taxNumber"
+                type="text"
+                class="form-control"
+                formControlName="taxNumber"
+                [placeholder]="'form.taxNumberPlaceholder' | translate"
+                [attr.aria-invalid]="isInvalid('taxNumber')"
+                aria-describedby="taxNumber-error"
+              />
+              <div *ngIf="isInvalid('taxNumber')" id="taxNumber-error" class="error-feedback" role="alert">
+                <span *ngIf="contactForm.get('taxNumber')?.hasError('required')">{{ 'validation.required' | translate }}</span>
+                <span *ngIf="contactForm.get('taxNumber')?.hasError('minlength')">{{ 'validation.minlength' | translate }}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tax Registration Document / Image (optional) -->
+          <div class="form-group mt-5">
+            <label for="taxImage" class="form-label">
+              {{ 'form.taxImage' | translate }}
+            </label>
+            <p class="field-hint">{{ 'form.taxImageHint' | translate }}</p>
+            <div class="file-upload-row">
+              <label class="file-upload-btn" for="taxImage">
+                {{ selectedTaxImage() ? ('form.taxImageChange' | translate) : ('form.taxImageChoose' | translate) }}
+              </label>
+              <input
+                id="taxImage"
+                type="file"
+                class="file-upload-input"
+                accept=".jpg,.jpeg,.png,.pdf,image/jpeg,image/png,application/pdf"
+                (change)="onTaxImageSelected($event)"
+              />
+              <span class="file-upload-name">
+                {{ selectedTaxImage()?.name || ('form.taxImageNoFile' | translate) }}
+              </span>
+              <button
+                *ngIf="selectedTaxImage()"
+                type="button"
+                class="file-upload-remove"
+                (click)="removeTaxImage()"
+                [attr.aria-label]="'form.taxImageRemove' | translate"
+              >
+                &times;
+              </button>
+            </div>
+            <div *ngIf="taxImageError()" class="error-feedback mt-1" role="alert">
+              <span>{{ taxImageError() }}</span>
+            </div>
           </div>
         </fieldset>
 
@@ -429,6 +484,81 @@ import { ShinyButtonComponent } from '../../../shared/components/shiny-button/sh
       max-width: 280px;
     }
 
+    .field-hint {
+      font-size: 0.82rem;
+      color: var(--color-neutral-500);
+      margin: 0;
+    }
+
+    .file-upload-row {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      flex-wrap: wrap;
+    }
+
+    .file-upload-input {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .file-upload-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.6rem 1.1rem;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--color-primary-700);
+      background-color: var(--color-primary-50);
+      border: 1.5px solid var(--color-primary-200);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: var(--transition-standard);
+      white-space: nowrap;
+
+      &:hover {
+        background-color: var(--color-primary-100);
+      }
+    }
+
+    .file-upload-input:focus-visible + .file-upload-btn,
+    .file-upload-input:focus + .file-upload-btn {
+      outline: none;
+      box-shadow: 0 0 0 4px rgba(100, 57, 81, 0.1);
+    }
+
+    .file-upload-name {
+      font-size: 0.88rem;
+      color: var(--color-neutral-600);
+      overflow-wrap: anywhere;
+    }
+
+    .file-upload-remove {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: none;
+      background-color: var(--color-neutral-100);
+      color: var(--color-neutral-700);
+      font-size: 1rem;
+      line-height: 1;
+      cursor: pointer;
+      transition: var(--transition-standard);
+
+      &:hover {
+        background-color: var(--color-error);
+        color: #FFFFFF;
+      }
+    }
+
     .has-error .form-control {
       border-color: var(--color-error);
       background-color: #FFF8F8;
@@ -619,12 +749,14 @@ import { ShinyButtonComponent } from '../../../shared/components/shiny-button/sh
 
     .mb-6 { margin-block-end: var(--space-6); }
     .mt-4 { margin-block-start: var(--space-4); }
+    .mt-5 { margin-block-start: var(--space-5); }
     .mt-1 { margin-block-start: var(--space-1); }
   `]
 })
 export class ContactFormComponent implements OnInit {
   private readonly fb = inject(FormBuilder);
   private readonly appService = inject(CompanyApplicationService);
+  private readonly translate = inject(TranslateService);
 
   contactForm!: FormGroup;
   selectedGoals: string[] = [];
@@ -632,6 +764,12 @@ export class ContactFormComponent implements OnInit {
   isSubmitting = signal<boolean>(false);
   submitStatus = signal<'idle' | 'success' | 'error'>('idle');
   applicationRefId = signal<string>('');
+
+  selectedTaxImage = signal<File | null>(null);
+  taxImageError = signal<string>('');
+
+  private static readonly MAX_TAX_IMAGE_BYTES = 5 * 1024 * 1024; // 5MB
+  private static readonly ALLOWED_TAX_IMAGE_TYPES = ['image/jpeg', 'image/png', 'application/pdf'];
 
   readonly goalOptions = [
     { key: 'tracking' },
@@ -655,6 +793,7 @@ export class ContactFormComponent implements OnInit {
       jobTitle: [''],
       email: ['', [Validators.required, Validators.email]],
       phone: ['', [Validators.required, Validators.pattern(/^[+0-9\s\-()]{7,25}$/)]],
+      taxNumber: ['', [Validators.required, Validators.minLength(3)]],
       activeProjects: [null, [Validators.min(0)]],
       additionalMessage: [''],
       consent: [false, [Validators.requiredTrue]]
@@ -681,6 +820,38 @@ export class ContactFormComponent implements OnInit {
     return this.selectedGoals.includes(goalKey);
   }
 
+  onTaxImageSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const file = input.files && input.files.length > 0 ? input.files[0] : null;
+    this.taxImageError.set('');
+
+    if (!file) {
+      this.selectedTaxImage.set(null);
+      return;
+    }
+
+    if (!ContactFormComponent.ALLOWED_TAX_IMAGE_TYPES.includes(file.type)) {
+      this.taxImageError.set(this.translate.instant('validation.taxImageType'));
+      this.selectedTaxImage.set(null);
+      input.value = '';
+      return;
+    }
+
+    if (file.size > ContactFormComponent.MAX_TAX_IMAGE_BYTES) {
+      this.taxImageError.set(this.translate.instant('validation.taxImageSize'));
+      this.selectedTaxImage.set(null);
+      input.value = '';
+      return;
+    }
+
+    this.selectedTaxImage.set(file);
+  }
+
+  removeTaxImage(): void {
+    this.selectedTaxImage.set(null);
+    this.taxImageError.set('');
+  }
+
   onSubmit(): void {
     if (this.contactForm.invalid) {
       this.contactForm.markAllAsTouched();
@@ -700,13 +871,14 @@ export class ContactFormComponent implements OnInit {
       jobTitle: formVal.jobTitle,
       email: formVal.email,
       phone: formVal.phone,
+      taxNumber: formVal.taxNumber,
       activeProjects: formVal.activeProjects ? Number(formVal.activeProjects) : undefined,
       managementGoals: [...this.selectedGoals],
       additionalMessage: formVal.additionalMessage,
       consent: formVal.consent
     };
 
-    this.appService.submitApplication(payload).subscribe({
+    this.appService.submitApplication(payload, this.selectedTaxImage()).subscribe({
       next: (res: ApplicationSubmissionResponse) => {
         this.isSubmitting.set(false);
         this.submitStatus.set('success');
@@ -724,6 +896,8 @@ export class ContactFormComponent implements OnInit {
   resetForm(): void {
     this.contactForm.reset();
     this.selectedGoals = [];
+    this.selectedTaxImage.set(null);
+    this.taxImageError.set('');
     this.submitStatus.set('idle');
   }
 }
