@@ -118,7 +118,7 @@ export function isValidEgyptMobile(raw: string): boolean {
       [class.is-open]="isDropdownOpen()"
       [class.is-focused]="isInputFocused()"
       [class.is-disabled]="isDisabled"
-      [class.is-invalid]="hasError()"
+      [class.is-invalid]="isInvalid()"
     >
       <!-- Country Dropdown Trigger Button -->
       <button
@@ -499,10 +499,27 @@ export class PhoneInputComponent implements OnInit, ControlValueAccessor, Valida
   isDropdownOpen = signal<boolean>(false);
   isInputFocused = signal<boolean>(false);
   searchQuery = signal<string>('');
-  hasError = signal<boolean>(false);
+  isTouched = signal<boolean>(false);
+  isDirty = signal<boolean>(false);
   isDisabled = false;
 
   readonly isArabic = computed(() => this.translate.currentLang === 'ar' || this.translate.defaultLang === 'ar');
+
+  readonly isInvalid = computed(() => {
+    if (!this.isTouched() && !this.isDirty()) {
+      return false;
+    }
+    const val = this.rawE164Value() || this.nationalDisplayValue();
+    if (!val || !val.trim()) {
+      return this.required;
+    }
+    const code = this.selectedCountry().code;
+    if (code === 'EG') {
+      return !isValidEgyptMobile(val);
+    }
+    const parsed = parsePhoneNumberFromString(val, code);
+    return !parsed || !parsed.isValid();
+  });
 
   readonly filteredCountries = computed(() => {
     const q = this.searchQuery().trim().toLowerCase();
@@ -590,6 +607,7 @@ export class PhoneInputComponent implements OnInit, ControlValueAccessor, Valida
   }
 
   onInputChange(event: Event): void {
+    this.isDirty.set(true);
     const input = event.target as HTMLInputElement;
     const oldCursor = input.selectionStart ?? input.value.length;
     const digitsBeforeCursor = (input.value.slice(0, oldCursor).match(/\d/g) || []).length;
@@ -697,7 +715,6 @@ export class PhoneInputComponent implements OnInit, ControlValueAccessor, Valida
         const e164 = `+20${nationalWithoutZero}`;
         this.rawE164Value.set(e164);
         this.onChange(e164);
-        this.hasError.set(false);
       } else {
         if (rawDigits.length > 0) {
           const cleanDigits = rawDigits.replace(/\D/g, '').replace(/^0+/, '');
@@ -708,7 +725,6 @@ export class PhoneInputComponent implements OnInit, ControlValueAccessor, Valida
           this.rawE164Value.set('');
           this.onChange('');
         }
-        this.hasError.set(rawDigits.length > 0);
       }
     } else {
       const parsed = parsePhoneNumberFromString(rawDigits, countryCode);
@@ -716,7 +732,6 @@ export class PhoneInputComponent implements OnInit, ControlValueAccessor, Valida
         const e164 = parsed.format('E.164');
         this.rawE164Value.set(e164);
         this.onChange(e164);
-        this.hasError.set(false);
       } else {
         if (rawDigits.length > 0) {
           const fallbackE164 = this.selectedCountry().dialCode + rawDigits.replace(/^0+/, '');
@@ -726,7 +741,6 @@ export class PhoneInputComponent implements OnInit, ControlValueAccessor, Valida
           this.rawE164Value.set('');
           this.onChange('');
         }
-        this.hasError.set(rawDigits.length > 0);
       }
     }
   }
@@ -737,6 +751,7 @@ export class PhoneInputComponent implements OnInit, ControlValueAccessor, Valida
 
   onInputBlur(): void {
     this.isInputFocused.set(false);
+    this.isTouched.set(true);
     this.onTouched();
   }
 
@@ -761,6 +776,8 @@ export class PhoneInputComponent implements OnInit, ControlValueAccessor, Valida
     } else {
       this.nationalDisplayValue.set('');
       this.rawE164Value.set('');
+      this.isTouched.set(false);
+      this.isDirty.set(false);
     }
   }
 
@@ -781,28 +798,23 @@ export class PhoneInputComponent implements OnInit, ControlValueAccessor, Valida
     const val = control.value;
     if (!val || !val.trim()) {
       if (this.required) {
-        this.hasError.set(true);
         return { required: true };
       }
-      this.hasError.set(false);
       return null;
     }
 
     const selectedCode = this.selectedCountry().code;
     if (selectedCode === 'EG') {
       if (!isValidEgyptMobile(val)) {
-        this.hasError.set(true);
         return { invalidPhone: true };
       }
     } else {
       const parsed = parsePhoneNumberFromString(val, selectedCode);
       if (!parsed || !parsed.isValid()) {
-        this.hasError.set(true);
         return { invalidPhone: true };
       }
     }
 
-    this.hasError.set(false);
     return null;
   }
 }

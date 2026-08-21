@@ -785,7 +785,8 @@ import { PhoneInputComponent } from "../../../shared/components/phone-input/phon
         }
       }
 
-      .has-error .form-control {
+      .has-error .form-control,
+      .has-error ::ng-deep .phone-input-wrapper {
         border-color: var(--color-error);
         background-color: #fff8f8;
       }
