@@ -9,6 +9,7 @@ import {
 } from "@angular/forms";
 import { TranslateModule, TranslateService } from "@ngx-translate/core";
 import { CompanyApplicationService } from "../../../core/services/company-application.service";
+import { ToastService } from "../../../core/services/toast.service";
 import {
   CompanyApplication,
   ApplicationSubmissionResponse,
@@ -101,6 +102,10 @@ import { ShinyButtonComponent } from "../../../shared/components/shiny-button/sh
                 <span
                   *ngIf="contactForm.get('companyName')?.hasError('required')"
                   >{{ "validation.required" | translate }}</span
+                >
+                <span
+                  *ngIf="contactForm.get('companyName')?.hasError('pattern')"
+                  >{{ "validation.companyNamePattern" | translate }}</span
                 >
                 <span
                   *ngIf="contactForm.get('companyName')?.hasError('minlength')"
@@ -348,6 +353,10 @@ import { ShinyButtonComponent } from "../../../shared/components/shiny-button/sh
                   >{{ "validation.required" | translate }}</span
                 >
                 <span
+                  *ngIf="contactForm.get('fullName')?.hasError('pattern')"
+                  >{{ "validation.fullNamePattern" | translate }}</span
+                >
+                <span
                   *ngIf="contactForm.get('fullName')?.hasError('minlength')"
                   >{{ "validation.minlength" | translate }}</span
                 >
@@ -355,7 +364,7 @@ import { ShinyButtonComponent } from "../../../shared/components/shiny-button/sh
             </div>
 
             <!-- Job Title -->
-            <div class="form-group">
+            <div class="form-group" [class.has-error]="isInvalid('jobTitle')">
               <label for="jobTitle" class="form-label">
                 {{ "form.jobTitle" | translate }}
               </label>
@@ -365,7 +374,20 @@ import { ShinyButtonComponent } from "../../../shared/components/shiny-button/sh
                 class="form-control"
                 formControlName="jobTitle"
                 [placeholder]="'form.jobTitlePlaceholder' | translate"
+                [attr.aria-invalid]="isInvalid('jobTitle')"
+                aria-describedby="jobTitle-error"
               />
+              <div
+                *ngIf="isInvalid('jobTitle')"
+                id="jobTitle-error"
+                class="error-feedback"
+                role="alert"
+              >
+                <span
+                  *ngIf="contactForm.get('jobTitle')?.hasError('pattern')"
+                  >{{ "validation.jobTitlePattern" | translate }}</span
+                >
+              </div>
             </div>
 
             <!-- Email -->
@@ -990,6 +1012,7 @@ import { ShinyButtonComponent } from "../../../shared/components/shiny-button/sh
 export class ContactFormComponent implements OnInit {
   private readonly fb = inject(FormBuilder);
   private readonly appService = inject(CompanyApplicationService);
+  private readonly toastService = inject(ToastService);
   private readonly translate = inject(TranslateService);
 
   contactForm!: FormGroup;
@@ -1023,7 +1046,14 @@ export class ContactFormComponent implements OnInit {
 
   private initForm(): void {
     this.contactForm = this.fb.group({
-      companyName: ["", [Validators.required, Validators.minLength(2)]],
+      companyName: [
+        "",
+        [
+          Validators.required,
+          Validators.minLength(2),
+          Validators.pattern(/^[a-zA-Z\u0600-\u06FF\s.&,'\-]+$/),
+        ],
+      ],
       companyType: ["", [Validators.required]],
       companySize: ["", [Validators.required]],
       country: [
@@ -1034,8 +1064,20 @@ export class ContactFormComponent implements OnInit {
           Validators.pattern(/^[a-zA-Z\u0600-\u06FF\s.\-']+$/),
         ],
       ],
-      fullName: ["", [Validators.required, Validators.minLength(2)]],
-      jobTitle: [""],
+      fullName: [
+        "",
+        [
+          Validators.required,
+          Validators.minLength(2),
+          Validators.pattern(/^[a-zA-Z\u0600-\u06FF\s.'\-]+$/),
+        ],
+      ],
+      jobTitle: [
+        "",
+        [
+          Validators.pattern(/^[a-zA-Z\u0600-\u06FF\s./&'\-]*$/),
+        ],
+      ],
       email: ["", [Validators.required, Validators.email]],
       phone: [
         "",
@@ -1123,6 +1165,9 @@ export class ContactFormComponent implements OnInit {
   onSubmit(): void {
     if (this.contactForm.invalid) {
       this.contactForm.markAllAsTouched();
+      this.toastService.error(
+        this.translate.instant("toast.formValidationFailed")
+      );
       return;
     }
 
@@ -1157,10 +1202,16 @@ export class ContactFormComponent implements OnInit {
           if (res.applicationId) {
             this.applicationRefId.set(res.applicationId);
           }
+          this.toastService.success(
+            this.translate.instant("toast.applicationSuccess")
+          );
         },
         error: () => {
           this.isSubmitting.set(false);
           this.submitStatus.set("error");
+          this.toastService.error(
+            this.translate.instant("toast.applicationError")
+          );
         },
       });
   }

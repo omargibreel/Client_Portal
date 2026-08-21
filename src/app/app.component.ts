@@ -4,13 +4,15 @@ import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './layout/navbar/navbar.component';
 import { FooterComponent } from './layout/footer/footer.component';
 import { LanguageService } from './core/services/language.service';
+import { ToastContainerComponent } from './shared/components/toast/toast-container.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, NavbarComponent, FooterComponent],
+  imports: [CommonModule, RouterOutlet, NavbarComponent, FooterComponent, ToastContainerComponent],
   template: `
     <div class="app-layout" [attr.dir]="langService.currentDir()" [attr.lang]="langService.currentLang()">
+      <app-toast-container></app-toast-container>
       <app-navbar></app-navbar>
       
       <div class="main-content-outlet">

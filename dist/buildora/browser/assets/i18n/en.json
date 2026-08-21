@@ -343,11 +343,19 @@
     "email": "Please enter a valid business email address.",
     "phone": "Please enter a valid phone number with country code.",
     "min": "Value must be 0 or greater.",
+    "companyNamePattern": "Company name must contain letters only.",
+    "fullNamePattern": "Full name must contain letters only.",
+    "jobTitlePattern": "Job title must contain letters only.",
     "countryPattern": "Country name must contain letters only.",
     "taxNumberPattern": "Tax registration number must be 9 digits (format: 123-456-789).",
     "taxImageType": "Only JPG, PNG or PDF files are allowed.",
     "taxImageSize": "File size must not exceed 5MB.",
     "consentRequired": "You must confirm this declaration before submitting."
+  },
+  "toast": {
+    "formValidationFailed": "Please correct the highlighted validation errors before submitting.",
+    "applicationSuccess": "Your application has been submitted successfully!",
+    "applicationError": "Unable to submit application. Please check your connection or try again."
   },
   "footer": {
     "tagline": "The next-generation connected workspace for construction project lifecycle management and enterprise intelligence.",
