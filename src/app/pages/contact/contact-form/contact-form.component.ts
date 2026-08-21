@@ -15,6 +15,7 @@ import {
   ApplicationSubmissionResponse,
 } from "../../../core/models/company-application.model";
 import { ShinyButtonComponent } from "../../../shared/components/shiny-button/shiny-button.component";
+import { PhoneInputComponent } from "../../../shared/components/phone-input/phone-input.component";
 
 @Component({
   selector: "app-contact-form",
@@ -24,6 +25,7 @@ import { ShinyButtonComponent } from "../../../shared/components/shiny-button/sh
     ReactiveFormsModule,
     TranslateModule,
     ShinyButtonComponent,
+    PhoneInputComponent,
   ],
   template: `
     <div class="form-container-card buildora-card">
@@ -426,15 +428,12 @@ import { ShinyButtonComponent } from "../../../shared/components/shiny-button/sh
                 {{ "form.phone" | translate }}
                 <span class="required-star">*</span>
               </label>
-              <input
+              <app-phone-input
                 id="phone"
-                type="tel"
-                class="form-control"
                 formControlName="phone"
-                [placeholder]="'form.phonePlaceholder' | translate"
-                [attr.aria-invalid]="isInvalid('phone')"
-                aria-describedby="phone-error"
-              />
+                [required]="true"
+                [defaultCountryCode]="'EG'"
+              ></app-phone-input>
               <div
                 *ngIf="isInvalid('phone')"
                 id="phone-error"
@@ -444,9 +443,13 @@ import { ShinyButtonComponent } from "../../../shared/components/shiny-button/sh
                 <span *ngIf="contactForm.get('phone')?.hasError('required')">{{
                   "validation.required" | translate
                 }}</span>
-                <span *ngIf="contactForm.get('phone')?.hasError('pattern')">{{
-                  "validation.phone" | translate
-                }}</span>
+                <span
+                  *ngIf="
+                    contactForm.get('phone')?.hasError('invalidPhone') ||
+                    contactForm.get('phone')?.hasError('pattern')
+                  "
+                  >{{ "validation.invalidPhone" | translate }}</span
+                >
               </div>
             </div>
           </div>
@@ -1079,10 +1082,7 @@ export class ContactFormComponent implements OnInit {
         ],
       ],
       email: ["", [Validators.required, Validators.email]],
-      phone: [
-        "",
-        [Validators.required, Validators.pattern(/^[+0-9\s\-()]{7,25}$/)],
-      ],
+      phone: ["", [Validators.required]],
       taxNumber: [
         "",
         [Validators.required, Validators.pattern(/^\d{3}-\d{3}-\d{3}$/)],
