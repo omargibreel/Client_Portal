@@ -343,6 +343,8 @@
     "email": "Please enter a valid business email address.",
     "phone": "Please enter a valid phone number with country code.",
     "min": "Value must be 0 or greater.",
+    "countryPattern": "Country name must contain letters only.",
+    "taxNumberPattern": "Tax registration number must be 9 digits (format: 123-456-789).",
     "taxImageType": "Only JPG, PNG or PDF files are allowed.",
     "taxImageSize": "File size must not exceed 5MB.",
     "consentRequired": "You must confirm this declaration before submitting."

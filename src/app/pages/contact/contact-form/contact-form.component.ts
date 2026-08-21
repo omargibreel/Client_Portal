@@ -217,7 +217,18 @@ import { ShinyButtonComponent } from "../../../shared/components/shiny-button/sh
                 class="error-feedback"
                 role="alert"
               >
-                <span>{{ "validation.required" | translate }}</span>
+                <span
+                  *ngIf="contactForm.get('country')?.hasError('required')"
+                  >{{ "validation.required" | translate }}</span
+                >
+                <span
+                  *ngIf="contactForm.get('country')?.hasError('pattern')"
+                  >{{ "validation.countryPattern" | translate }}</span
+                >
+                <span
+                  *ngIf="contactForm.get('country')?.hasError('minlength')"
+                  >{{ "validation.minlength" | translate }}</span
+                >
               </div>
             </div>
 
@@ -235,6 +246,8 @@ import { ShinyButtonComponent } from "../../../shared/components/shiny-button/sh
                 [placeholder]="'form.taxNumberPlaceholder' | translate"
                 [attr.aria-invalid]="isInvalid('taxNumber')"
                 aria-describedby="taxNumber-error"
+                (input)="onTaxNumberInput($event)"
+                maxlength="11"
               />
               <div
                 *ngIf="isInvalid('taxNumber')"
@@ -247,8 +260,8 @@ import { ShinyButtonComponent } from "../../../shared/components/shiny-button/sh
                   >{{ "validation.required" | translate }}</span
                 >
                 <span
-                  *ngIf="contactForm.get('taxNumber')?.hasError('minlength')"
-                  >{{ "validation.minlength" | translate }}</span
+                  *ngIf="contactForm.get('taxNumber')?.hasError('pattern')"
+                  >{{ "validation.taxNumberPattern" | translate }}</span
                 >
               </div>
             </div>
@@ -1013,7 +1026,14 @@ export class ContactFormComponent implements OnInit {
       companyName: ["", [Validators.required, Validators.minLength(2)]],
       companyType: ["", [Validators.required]],
       companySize: ["", [Validators.required]],
-      country: ["", [Validators.required]],
+      country: [
+        "",
+        [
+          Validators.required,
+          Validators.minLength(2),
+          Validators.pattern(/^[a-zA-Z\u0600-\u06FF\s.\-']+$/),
+        ],
+      ],
       fullName: ["", [Validators.required, Validators.minLength(2)]],
       jobTitle: [""],
       email: ["", [Validators.required, Validators.email]],
@@ -1021,11 +1041,31 @@ export class ContactFormComponent implements OnInit {
         "",
         [Validators.required, Validators.pattern(/^[+0-9\s\-()]{7,25}$/)],
       ],
-      taxNumber: ["", [Validators.required, Validators.minLength(3)]],
+      taxNumber: [
+        "",
+        [Validators.required, Validators.pattern(/^\d{3}-\d{3}-\d{3}$/)],
+      ],
       activeProjects: [null, [Validators.min(0)]],
       additionalMessage: [""],
       consent: [false, [Validators.requiredTrue]],
     });
+  }
+
+  onTaxNumberInput(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const digits = input.value.replace(/\D/g, "").slice(0, 9);
+    let formatted = "";
+    if (digits.length > 0) {
+      formatted = digits.substring(0, 3);
+      if (digits.length > 3) {
+        formatted += "-" + digits.substring(3, 6);
+      }
+      if (digits.length > 6) {
+        formatted += "-" + digits.substring(6, 9);
+      }
+    }
+    input.value = formatted;
+    this.contactForm.get("taxNumber")?.setValue(formatted, { emitEvent: true });
   }
 
   isInvalid(fieldName: string): boolean {
